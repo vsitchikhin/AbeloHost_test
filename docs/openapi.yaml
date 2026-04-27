@@ -107,7 +107,7 @@ paths:
             text/html:
               schema:
                 type: string
-  /docs:
+  /api/docs:
     get:
       tags:
         - Pages
@@ -120,7 +120,7 @@ paths:
             text/html:
               schema:
                 type: string
-  /docs/openapi.yaml:
+  /api/docs/openapi.yaml:
     get:
       tags:
         - Pages

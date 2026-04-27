@@ -21,15 +21,15 @@ $router->get('/', function (): void {
     (new HomeController())->index();
 });
 
-$router->get('/docs', function (): void {
+$router->get('/api/docs', function (): void {
     (new DocsController())->index();
 });
 
-$router->get('/docs/openapi.yaml', function (): void {
+$router->get('/api/docs/openapi.yaml', function (): void {
     (new DocsController())->openapi();
 });
 
-$router->get('/docs/assets/([a-z0-9.-]+)', function (string $filename): void {
+$router->get('/api/docs/assets/([a-z0-9.-]+)', function (string $filename): void {
     (new DocsController())->asset($filename);
 });
 
