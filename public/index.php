@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Controllers\CategoryController;
+use App\Controllers\DocsController;
 use App\Controllers\HomeController;
 use App\Controllers\PostController;
 use App\Core\View;
@@ -18,6 +19,18 @@ $router = new Router();
 
 $router->get('/', function (): void {
     (new HomeController())->index();
+});
+
+$router->get('/docs', function (): void {
+    (new DocsController())->index();
+});
+
+$router->get('/docs/openapi.yaml', function (): void {
+    (new DocsController())->openapi();
+});
+
+$router->get('/docs/assets/([a-z0-9.-]+)', function (string $filename): void {
+    (new DocsController())->asset($filename);
 });
 
 $router->get('/category/(\d+)', function (string $id): void {

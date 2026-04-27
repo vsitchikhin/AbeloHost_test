@@ -1,0 +1,135 @@
+openapi: 3.0.3
+info:
+  title: AbeloHost Blog
+  version: 1.0.0
+  description: HTTP documentation for the PHP blog test assignment.
+servers:
+  - url: http://localhost:8080
+    description: Local Docker environment
+tags:
+  - name: Pages
+    description: HTML blog pages rendered by Smarty
+paths:
+  /:
+    get:
+      tags:
+        - Pages
+      summary: Home page
+      description: Shows categories that have posts and the latest posts for each category.
+      responses:
+        '200':
+          description: Home page HTML.
+          content:
+            text/html:
+              schema:
+                type: string
+  /category/{category}:
+    get:
+      tags:
+        - Pages
+      summary: Category page
+      description: Shows category details and a paginated list of posts.
+      parameters:
+        - name: category
+          in: path
+          required: true
+          description: Category slug. Numeric IDs are supported for backward compatibility.
+          schema:
+            type: string
+            pattern: '^([a-z0-9-]+|[1-9][0-9]*)$'
+            example: php
+        - name: sort
+          in: query
+          required: false
+          description: Field used to sort category posts.
+          schema:
+            type: string
+            enum:
+              - published_at
+              - views
+            default: published_at
+        - name: dir
+          in: query
+          required: false
+          description: Sort direction.
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: desc
+        - name: page
+          in: query
+          required: false
+          description: Page number.
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+      responses:
+        '200':
+          description: Category page HTML.
+          content:
+            text/html:
+              schema:
+                type: string
+        '404':
+          description: Category was not found.
+          content:
+            text/html:
+              schema:
+                type: string
+  /post/{post}:
+    get:
+      tags:
+        - Pages
+      summary: Post page
+      description: Shows the full post, increments views, and shows similar posts.
+      parameters:
+        - name: post
+          in: path
+          required: true
+          description: Post slug. Numeric IDs are supported for backward compatibility.
+          schema:
+            type: string
+            pattern: '^([a-z0-9-]+|[1-9][0-9]*)$'
+            example: first-post
+      responses:
+        '200':
+          description: Post page HTML.
+          content:
+            text/html:
+              schema:
+                type: string
+        '404':
+          description: Post was not found.
+          content:
+            text/html:
+              schema:
+                type: string
+  /docs:
+    get:
+      tags:
+        - Pages
+      summary: Swagger UI
+      description: Interactive OpenAPI documentation.
+      responses:
+        '200':
+          description: Swagger UI HTML.
+          content:
+            text/html:
+              schema:
+                type: string
+  /docs/openapi.yaml:
+    get:
+      tags:
+        - Pages
+      summary: OpenAPI specification
+      description: Raw OpenAPI YAML document.
+      responses:
+        '200':
+          description: OpenAPI YAML.
+          content:
+            application/yaml:
+              schema:
+                type: string

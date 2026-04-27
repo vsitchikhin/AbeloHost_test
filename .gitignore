@@ -8,6 +8,10 @@
 /tests/_reports/
 /public/css/
 /public/js/
+/storage/smarty/cache/*
+/storage/smarty/compile/*
+!/storage/smarty/cache/.gitkeep
+!/storage/smarty/compile/.gitkeep
 /playwright-report/
 /test-results/
 /.scratch/
