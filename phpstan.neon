@@ -3,6 +3,8 @@ parameters:
     phpVersion: 80300
     treatPhpDocTypesAsCertain: false
     checkMissingIterableValueType: true
+    parallel:
+        maximumNumberOfProcesses: 1
     paths:
         - src
         - public
