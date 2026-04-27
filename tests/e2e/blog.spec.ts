@@ -8,7 +8,7 @@ test.describe('Home page', () => {
     await expect(page.getByTestId('home-page')).toBeVisible();
     await expect(page.getByRole('heading', { exact: true, name: 'Technology' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Newest Technology Article' })).toBeVisible();
-    await expect(page.locator('a[href="/category/technology"]', { hasText: 'All articles' })).toBeVisible();
+    await expect(page.locator('a[href="/category/technology"]', { hasText: 'View All' })).toBeVisible();
   });
 });
 

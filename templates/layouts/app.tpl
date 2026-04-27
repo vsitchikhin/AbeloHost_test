@@ -8,7 +8,9 @@
 </head>
 <body>
 <header class="site-header">
-    <a class="site-logo" href="/">{$appName|escape}</a>
+    <div class="site-header__inner">
+        <a class="site-logo" href="/">Blogy.</a>
+    </div>
     <nav class="site-nav" aria-label="Main navigation">
         <a href="/">Home</a>
         <a href="/api/docs">API Docs</a>
@@ -20,7 +22,7 @@
 </main>
 
 <footer class="site-footer">
-    <p>&copy; {$smarty.now|date_format:'%Y'} {$appName|escape}</p>
+    <p>Copyright &copy;{$smarty.now|date_format:'%Y'}, All Rights Reserved.</p>
 </footer>
 
 <script src="/js/main.js"></script>

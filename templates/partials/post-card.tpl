@@ -14,5 +14,6 @@
             <span>{$post.published_at|date_format:'%d.%m.%Y'}</span>
             <span>{$post.views|escape} views</span>
         </div>
+        <a class="post-card__read-more" href="/post/{$post.slug|escape:'url'}">Continue Reading</a>
     </div>
 </article>
