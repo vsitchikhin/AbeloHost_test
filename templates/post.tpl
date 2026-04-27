@@ -5,6 +5,7 @@
 {block name='content'}
     <article class="post-page" data-testid="post-page">
         <header class="post-page__header">
+            <a class="back-link" href="/">Back to home</a>
             <div class="post-page__categories">
                 {foreach $post.categories as $category}
                     <a href="/category/{$category.slug|escape:'url'}">{$category.name|escape}</a>
@@ -28,7 +29,9 @@
     </article>
 
     <section class="similar-posts">
-        <h2>Similar articles</h2>
+        <div class="category-section__header">
+            <h2>Similar articles</h2>
+        </div>
         {if empty($similar)}
             <p>No similar articles yet.</p>
         {else}

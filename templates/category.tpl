@@ -3,18 +3,22 @@
 {block name='title'}{$category.name|escape} - {$appName|escape}{/block}
 
 {block name='content'}
-    <section class="page-heading" data-testid="category-page">
-        <p class="page-heading__eyebrow">Category</p>
-        <h1>{$category.name|escape}</h1>
-        <p>{$category.description|escape}</p>
+    <section class="listing-heading" data-testid="category-page">
+        <div>
+            <p class="page-heading__eyebrow">Category</p>
+            <h1>{$category.name|escape}</h1>
+            <p class="listing-heading__description">{$category.description|escape}</p>
+        </div>
+        <a class="back-link" href="/">Back to home</a>
     </section>
 
-    <section class="toolbar" aria-label="Article sorting">
-        <a class="button{if $sortBy == 'published_at'} button--active{/if}"
+    <nav class="toolbar" aria-label="Article sorting">
+        <span>Sort by</span>
+        <a class="{if $sortBy == 'published_at'}is-active{/if}"
            href="/category/{$category.slug|escape:'url'}?sort=published_at&dir=desc">Newest</a>
-        <a class="button{if $sortBy == 'views'} button--active{/if}"
+        <a class="{if $sortBy == 'views'}is-active{/if}"
            href="/category/{$category.slug|escape:'url'}?sort=views&dir=desc">Popular</a>
-    </section>
+    </nav>
 
     {if empty($posts)}
         <section class="empty-state" data-testid="empty-state">
