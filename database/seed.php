@@ -21,6 +21,14 @@ $pdo->exec('TRUNCATE TABLE posts');
 $pdo->exec('TRUNCATE TABLE categories');
 $pdo->exec('SET FOREIGN_KEY_CHECKS = 1');
 
+$slugify = static function (string $value): string {
+    $slug = strtolower(trim($value));
+    $slug = preg_replace('/[^a-z0-9]+/', '-', $slug) ?? '';
+    $slug = trim($slug, '-');
+
+    return $slug !== '' ? $slug : 'item';
+};
+
 // --- Categories ---
 echo "Seeding categories...\n";
 
@@ -34,10 +42,10 @@ $categoryData = [
 ];
 
 $categoryIds    = [];
-$insertCategory = $pdo->prepare('INSERT INTO categories (name, description) VALUES (?, ?)');
+$insertCategory = $pdo->prepare('INSERT INTO categories (name, slug, description) VALUES (?, ?, ?)');
 
 foreach ($categoryData as [$name, $description]) {
-    $insertCategory->execute([$name, $description]);
+    $insertCategory->execute([$name, $slugify($name), $description]);
     $categoryIds[] = (int) $pdo->lastInsertId();
 }
 
@@ -47,18 +55,20 @@ echo sprintf("  %d categories inserted.\n", count($categoryIds));
 echo "Seeding posts...\n";
 
 $insertPost = $pdo->prepare(
-    'INSERT INTO posts (title, description, content, image, views, published_at)
-     VALUES (?, ?, ?, ?, ?, ?)'
+    'INSERT INTO posts (title, slug, description, content, image, views, published_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?)'
 );
 $insertRelation = $pdo->prepare(
     'INSERT INTO post_categories (post_id, category_id) VALUES (?, ?)'
 );
 
 for ($i = 0; $i < 40; $i++) {
-    $seed = $faker->unique()->numberBetween(1, 9999);
+    $seed  = $faker->unique()->numberBetween(1, 9999);
+    $title = ucfirst($faker->sentence(rand(4, 8), false));
 
     $insertPost->execute([
-        ucfirst($faker->sentence(rand(4, 8), false)),
+        $title,
+        sprintf('%s-%d', $slugify($title), $i + 1),
         $faker->paragraph(2),
         implode("\n\n", $faker->paragraphs(rand(4, 8))),
         "https://picsum.photos/seed/{$seed}/800/450",

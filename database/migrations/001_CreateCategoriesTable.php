@@ -9,11 +9,15 @@ return new class implements MigrationInterface {
     {
         $pdo->exec(<<<'SQL'
             CREATE TABLE IF NOT EXISTS categories (
-                id          INT UNSIGNED NOT NULL AUTO_INCREMENT,
-                name        VARCHAR(255) NOT NULL,
-                description TEXT         NOT NULL DEFAULT '',
-                created_at  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                PRIMARY KEY (id)
+                id          INT UNSIGNED  NOT NULL AUTO_INCREMENT,
+                name        VARCHAR(255)  NOT NULL,
+                slug        VARCHAR(160)  NOT NULL,
+                description TEXT          NOT NULL,
+                created_at  TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                updated_at  TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                PRIMARY KEY (id),
+                UNIQUE KEY uq_categories_slug (slug),
+                INDEX idx_categories_name (name)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
             SQL);
     }

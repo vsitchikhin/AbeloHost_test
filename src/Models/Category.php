@@ -20,7 +20,7 @@ class Category
 
         /** @var list<array<string, mixed>> $categories */
         $categories = $pdo->query(
-            'SELECT id, name, description
+            'SELECT id, name, slug, description
              FROM categories
              WHERE id IN (SELECT DISTINCT category_id FROM post_categories)
              ORDER BY name ASC'
@@ -36,7 +36,7 @@ class Category
         $stmt = $pdo->prepare(
             "SELECT ranked.*
              FROM (
-                 SELECT p.id, p.title, p.description, p.image, p.views, p.published_at,
+                 SELECT p.id, p.title, p.slug, p.description, p.image, p.views, p.published_at,
                         pc.category_id,
                         ROW_NUMBER() OVER (PARTITION BY pc.category_id ORDER BY p.published_at DESC) AS rn
                  FROM posts p
@@ -70,7 +70,7 @@ class Category
     public static function findById(int $id): ?array
     {
         $pdo  = Database::getInstance();
-        $stmt = $pdo->prepare('SELECT id, name, description FROM categories WHERE id = ?');
+        $stmt = $pdo->prepare('SELECT id, name, slug, description FROM categories WHERE id = ?');
         $stmt->execute([$id]);
 
         $row = $stmt->fetch();

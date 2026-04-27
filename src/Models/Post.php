@@ -20,7 +20,7 @@ class Post
     {
         $pdo  = Database::getInstance();
         $stmt = $pdo->prepare(
-            'SELECT id, title, description, content, image, views, published_at
+            'SELECT id, title, slug, description, content, image, views, published_at
              FROM posts
              WHERE id = ?'
         );
@@ -33,7 +33,7 @@ class Post
         }
 
         $stmt = $pdo->prepare(
-            'SELECT c.id, c.name
+            'SELECT c.id, c.name, c.slug
              FROM categories c
              INNER JOIN post_categories pc ON pc.category_id = c.id
              WHERE pc.post_id = ?'
@@ -66,7 +66,7 @@ class Post
 
         $pdo  = Database::getInstance();
         $stmt = $pdo->prepare(
-            "SELECT p.id, p.title, p.description, p.image, p.views, p.published_at
+            "SELECT p.id, p.title, p.slug, p.description, p.image, p.views, p.published_at
              FROM posts p
              INNER JOIN post_categories pc ON pc.post_id = p.id
              WHERE pc.category_id = ?
@@ -107,7 +107,7 @@ class Post
 
         if (empty($categoryIds)) {
             $stmt = $pdo->prepare(
-                'SELECT id, title, description, image, views, published_at
+                'SELECT id, title, slug, description, image, views, published_at
                  FROM posts
                  WHERE id != ?
                  ORDER BY published_at DESC
@@ -123,7 +123,7 @@ class Post
 
         $placeholders = implode(',', array_fill(0, count($categoryIds), '?'));
         $stmt         = $pdo->prepare(
-            "SELECT DISTINCT p.id, p.title, p.description, p.image, p.views, p.published_at
+            "SELECT DISTINCT p.id, p.title, p.slug, p.description, p.image, p.views, p.published_at
              FROM posts p
              INNER JOIN post_categories pc ON pc.post_id = p.id
              WHERE pc.category_id IN ({$placeholders})

@@ -13,10 +13,11 @@
     "noUnusedParameters": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "types": ["node"],
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true
   },
-  "include": ["src/assets/ts/**/*", "tests/e2e/**/*"],
+  "include": ["playwright.config.ts", "src/assets/ts/**/*", "tests/e2e/**/*"],
   "exclude": ["node_modules", "vendor"]
 }

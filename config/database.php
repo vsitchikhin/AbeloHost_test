@@ -7,5 +7,5 @@ return [
     'port'     => (string) ($_ENV['DB_PORT'] ?? '3306'),
     'database' => (string) ($_ENV['DB_DATABASE'] ?? 'blog'),
     'username' => (string) ($_ENV['DB_USERNAME'] ?? 'user'),
-    'password' => (string) ($_ENV['DB_PASSWORD'] ?? 'password'),
+    'password' => (string) ($_ENV['DB_PASSWORD'] ?? ''),
 ];

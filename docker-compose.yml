@@ -3,19 +3,18 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    env_file:
+      - .env
     volumes:
       - .:/var/www/html
       - ./docker/php.ini:/usr/local/etc/php/conf.d/custom.ini
-    environment:
-      - DB_HOST=db
-      - DB_NAME=blog
-      - DB_USER=user
-      - DB_PASSWORD=password
     depends_on:
       - db
 
   nginx:
     image: nginx:alpine
+    env_file:
+      - .env
     ports:
       - "8080:80"
     volumes:
@@ -27,11 +26,13 @@ services:
   db:
     image: mysql:8.0
     restart: always
+    env_file:
+      - .env
     environment:
-      MYSQL_DATABASE: blog
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
       - "3306:3306"
     volumes:
