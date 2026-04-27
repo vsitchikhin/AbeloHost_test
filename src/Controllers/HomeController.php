@@ -5,17 +5,15 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Core\ServiceFactory;
-use App\Core\View;
 use App\Services\BlogService;
 
-class HomeController
+class HomeController extends BaseController
 {
-    private View $view;
     private BlogService $blog;
 
     public function __construct(?BlogService $blog = null)
     {
-        $this->view = new View();
+        parent::__construct();
         $this->blog = $blog ?? ServiceFactory::blog();
     }
 

@@ -6,17 +6,15 @@ namespace App\Controllers;
 
 use App\Core\NotFoundException;
 use App\Core\ServiceFactory;
-use App\Core\View;
 use App\Services\BlogService;
 
-class PostController
+class PostController extends BaseController
 {
-    private View $view;
     private BlogService $blog;
 
     public function __construct(?BlogService $blog = null)
     {
-        $this->view = new View();
+        parent::__construct();
         $this->blog = $blog ?? ServiceFactory::blog();
     }
 
@@ -42,11 +40,5 @@ class PostController
         }
 
         $this->view->render('post.tpl', $data);
-    }
-
-    private function renderNotFound(): void
-    {
-        http_response_code(404);
-        $this->view->render('404.tpl');
     }
 }

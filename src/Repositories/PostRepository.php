@@ -58,6 +58,9 @@ class PostRepository
         return $post;
     }
 
+    private const ALLOWED_ORDER_FIELDS     = ['published_at', 'views'];
+    private const ALLOWED_ORDER_DIRECTIONS = ['asc', 'desc'];
+
     /**
      * @return list<array<string, mixed>>
      */
@@ -68,12 +71,15 @@ class PostRepository
         int $limit,
         int $offset
     ): array {
+        $safeOrderBy   = in_array($orderBy, self::ALLOWED_ORDER_FIELDS, true) ? $orderBy : 'published_at';
+        $safeDirection = in_array($direction, self::ALLOWED_ORDER_DIRECTIONS, true) ? $direction : 'desc';
+
         $stmt = $this->pdo->prepare(
             "SELECT p.id, p.title, p.slug, p.description, p.image, p.views, p.published_at
              FROM posts p
              INNER JOIN post_categories pc ON pc.post_id = p.id
              WHERE pc.category_id = ?
-             ORDER BY p.{$orderBy} {$direction}
+             ORDER BY p.{$safeOrderBy} {$safeDirection}
              LIMIT ? OFFSET ?"
         );
         $stmt->execute([$categoryId, $limit, $offset]);
