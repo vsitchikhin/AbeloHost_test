@@ -1,4 +1,4 @@
-<article class="post-card" data-testid="post-card">
+<article class="post-card" data-testid="post-card" data-post-slug="{$post.slug|escape}">
     {if !empty($post.image)}
         <a class="post-card__image-link" href="/post/{$post.slug|escape:'url'}" aria-label="Read {$post.title|escape}">
             <img class="post-card__image" src="{$post.image|escape}" alt="">
