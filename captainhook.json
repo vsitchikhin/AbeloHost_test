@@ -1,0 +1,27 @@
+{
+    "config": {
+        "verbosity": "normal"
+    },
+    "pre-commit": {
+        "enabled": true,
+        "actions": [
+            {
+                "action": "vendor/bin/phpcs"
+            },
+            {
+                "action": "vendor/bin/phpstan analyze"
+            },
+            {
+                "action": "vendor/bin/phpunit --no-coverage"
+            }
+        ]
+    },
+    "pre-push": {
+        "enabled": true,
+        "actions": [
+            {
+                "action": "npm run test:e2e"
+            }
+        ]
+    }
+}

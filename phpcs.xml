@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ruleset name="PHP_CodeSniffer">
+    <description>The coding standard for the PHP blog project.</description>
+    <arg name="colors"/>
+    <arg value="p"/>
+
+    <!-- Use PSR-12 as base -->
+    <rule ref="PSR12"/>
+
+    <!-- Require declare(strict_types=1) in every file -->
+    <rule ref="Generic.PHP.RequireStrictTypes"/>
+    <!-- No silent error suppression with @ -->
+    <rule ref="Generic.PHP.NoSilencedErrors"/>
+    <!-- Enforce short array syntax [] instead of array() -->
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+    <!-- Spaces after type casts -->
+    <rule ref="Generic.Formatting.SpaceAfterCast"/>
+
+    <!-- Path to check -->
+    <file>src</file>
+    <file>public</file>
+    <file>tests</file>
+    <file>database</file>
+
+    <!-- Exclude vendor directory -->
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+</ruleset>

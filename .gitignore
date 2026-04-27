@@ -1,1 +1,14 @@
-.scratch/
+/vendor/
+/node_modules/
+/.env
+/.phpunit.cache/
+/.phpstan.cache/
+/tests/_reports/
+/public/css/
+/public/js/
+/playwright-report/
+/test-results/
+/.scratch/
+.DS_Store
+.idea/
+.vscode/

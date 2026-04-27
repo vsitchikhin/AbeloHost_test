@@ -1,0 +1,12 @@
+parameters:
+    level: 6
+    phpVersion: 80300
+    treatPhpDocTypesAsCertain: false
+    checkMissingIterableValueType: true
+    paths:
+        - src
+        - public
+        - tests
+        - database
+    excludePaths:
+        - vendor

@@ -1,0 +1,30 @@
+{
+  "name": "abelohost-test",
+  "version": "1.0.0",
+  "description": "Frontend tools and E2E tests for the PHP blog project",
+  "main": "index.js",
+  "scripts": {
+    "build": "node build.mjs",
+    "build:prod": "NODE_ENV=production node build.mjs",
+    "dev": "node build.mjs --watch",
+    "type-check": "tsc --noEmit",
+    "test:e2e": "playwright test",
+    "lint": "eslint \"{src/assets/ts,tests/e2e}/**/*.ts\" && stylelint \"src/assets/scss/**/*.scss\" && tsc --noEmit",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.43.0",
+    "@types/node": "^25.6.0",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "esbuild": "^0.28.0",
+    "esbuild-sass-plugin": "^3.7.0",
+    "eslint": "^8.57.0",
+    "eslint-config-standard-with-typescript": "^43.0.1",
+    "prettier": "^3.2.5",
+    "sass": "^1.75.0",
+    "stylelint": "^16.2.1",
+    "stylelint-config-standard-scss": "^13.0.0",
+    "typescript": "^6.0.3"
+  }
+}
