@@ -6,7 +6,7 @@
         "enabled": true,
         "actions": [
             {
-                "action": "composer check"
+                "action": "docker compose exec -T app composer check"
             }
         ]
     },
