@@ -4,44 +4,49 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Core\NotFoundException;
+use App\Core\ServiceFactory;
 use App\Core\View;
-use App\Models\Post;
+use App\Services\BlogService;
 
 class PostController
 {
     private View $view;
+    private BlogService $blog;
 
-    public function __construct()
+    public function __construct(?BlogService $blog = null)
     {
         $this->view = new View();
+        $this->blog = $blog ?? ServiceFactory::blog();
     }
 
-    public function show(int $id): void
+    public function show(string $slug): void
     {
-        $post = Post::findById($id);
-
-        if ($post === null) {
-            http_response_code(404);
-            $this->view->render('404.tpl');
+        try {
+            $data = $this->blog->getPostPageData($slug);
+        } catch (NotFoundException) {
+            $this->renderNotFound();
             return;
         }
 
-        Post::incrementViews($id);
+        $this->view->render('post.tpl', $data);
+    }
 
-        /** @var list<array<string, mixed>> $postCategories */
-        $postCategories = (array) $post['categories'];
+    public function showById(int $id): void
+    {
+        try {
+            $data = $this->blog->getPostPageDataById($id);
+        } catch (NotFoundException) {
+            $this->renderNotFound();
+            return;
+        }
 
-        /** @var list<int> $categoryIds */
-        $categoryIds = array_map(
-            static fn (mixed $cat): int => (int) (is_array($cat) ? $cat['id'] : 0),
-            $postCategories
-        );
+        $this->view->render('post.tpl', $data);
+    }
 
-        $similar = Post::getSimilar($id, $categoryIds);
-
-        $this->view->render('post.tpl', [
-            'post'    => $post,
-            'similar' => $similar,
-        ]);
+    private function renderNotFound(): void
+    {
+        http_response_code(404);
+        $this->view->render('404.tpl');
     }
 }

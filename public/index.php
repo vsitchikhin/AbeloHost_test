@@ -21,11 +21,19 @@ $router->get('/', function (): void {
 });
 
 $router->get('/category/(\d+)', function (string $id): void {
-    (new CategoryController())->show((int) $id);
+    (new CategoryController())->showById((int) $id);
+});
+
+$router->get('/category/([a-z0-9-]+)', function (string $slug): void {
+    (new CategoryController())->show($slug);
 });
 
 $router->get('/post/(\d+)', function (string $id): void {
-    (new PostController())->show((int) $id);
+    (new PostController())->showById((int) $id);
+});
+
+$router->get('/post/([a-z0-9-]+)', function (string $slug): void {
+    (new PostController())->show($slug);
 });
 
 $router->set404(function (): void {
