@@ -18,6 +18,6 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true
   },
-  "include": ["playwright.config.ts", "src/assets/ts/**/*", "tests/e2e/**/*"],
+  "include": ["playwright.config.ts", "tests/e2e/**/*"],
   "exclude": ["node_modules", "vendor"]
 }

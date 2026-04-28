@@ -25,6 +25,5 @@
     <p>Copyright &copy;{$smarty.now|date_format:'%Y'}, All Rights Reserved.</p>
 </footer>
 
-<script src="/js/main.js"></script>
 </body>
 </html>

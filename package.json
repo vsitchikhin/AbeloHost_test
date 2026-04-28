@@ -9,7 +9,7 @@
     "dev": "node build.mjs --watch",
     "type-check": "tsc --noEmit",
     "test:e2e": "playwright test",
-    "lint": "eslint \"{src/assets/ts,tests/e2e}/**/*.ts\" playwright.config.ts && stylelint \"src/assets/scss/**/*.scss\" && tsc --noEmit",
+    "lint": "eslint \"tests/e2e/**/*.ts\" playwright.config.ts && stylelint \"src/assets/scss/**/*.scss\" && tsc --noEmit",
     "format": "prettier --write ."
   },
   "devDependencies": {

@@ -7,7 +7,6 @@ const isProd = process.env.NODE_ENV === 'production';
 /** @type {import('esbuild').BuildOptions} */
 const options = {
   entryPoints: {
-    'js/main': 'src/assets/ts/main.ts',
     'css/style': 'src/assets/scss/main.scss',
   },
   bundle: true,
